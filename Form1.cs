@@ -157,6 +157,7 @@ namespace easytext
             richTextBox1.SelectAll();
 
             String font = comboBox1.SelectedItem.ToString();
+
             richTextBox1.SelectionFont = new Font(font, 12);
 
             richTextBox1.DeselectAll();
