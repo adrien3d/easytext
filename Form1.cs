@@ -15,6 +15,10 @@ namespace easytext
         public Form1()
         {
             InitializeComponent();
+            toolStripButton1.Enabled = false;
+            toolStripButton2.Enabled = false;
+            if (richTextBox1.CanUndo)       toolStripButton1.Enabled = true;
+            if (richTextBox1.CanRedo)       toolStripButton2.Enabled = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -113,7 +117,7 @@ namespace easytext
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) //Police
         {
-            //Font
+            //richTextBox1//Font
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e) //Taille
