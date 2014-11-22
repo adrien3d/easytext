@@ -50,14 +50,23 @@ namespace easytext
             //Cahrge form2
         }
 
+        int sel = 0;
         private void toolStripButton4_Click(object sender, EventArgs e) //Centrer
         {
+            richTextBox1.SelectAll();
 
+            if ((sel%2) ==0) richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+            else richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
+            sel++;
+
+            richTextBox1.DeselectAll();
         }
 
         private void toolStripButton5_Click(object sender, EventArgs e) //Bold
         {
-             
+            richTextBox1.SelectAll();
+            //richTextBox1.SelectionColor = Color.Blue;
+            richTextBox1.DeselectAll();
         }
 
         private void toolStripButton6_Click(object sender, EventArgs e) //Italic
@@ -78,7 +87,6 @@ namespace easytext
         private void toolStripButton9_Click(object sender, EventArgs e) //Ouverture d'un doc Word
         {
             openFileDialog1.Filter = "Fichiers texte (.txt)|*.txt|Fichiers Word (.docx)|*.docx|Tous les Fichiers (*.*)|*.*";
-            openFileDialog1.ShowDialog();
             
             if (openFileDialog1.ShowDialog()==DialogResult.OK) {
                 richTextBox1.Text = File.ReadAllText(openFileDialog1.FileName);
