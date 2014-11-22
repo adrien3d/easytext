@@ -88,23 +88,23 @@ namespace easytext
 
         private void toolStripButton10_Click(object sender, EventArgs e) //Enregister le doc Word
         {
+            saveFileDialog1.Filter = "Fichier texte (*.txt)|*.txt";
+            saveFileDialog1.RestoreDirectory = true;
 
-           saveFileDialog1.Filter = "Fichier texte (*.txt)|*.txt";
-           saveFileDialog1.RestoreDirectory = true;
-
-           if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-           {
-                 try
-                 {
-                     StreamWriter sw = new StreamWriter(saveFileDialog1.FileName);
-                     sw.Write(richTextBox1.Text);
-                     sw.Close();
-                 }
-                 catch (Exception argh)
-                 {
-                     MessageBox.Show(argh.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                 }
-           }
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                  try
+                  {
+                      StreamWriter sw = new StreamWriter(saveFileDialog1.FileName);
+                      sw.Write(richTextBox1.Text);
+                      sw.Close();
+                      MessageBox.Show("Fichier bien sauvegardé");
+                  }
+                  catch (Exception argh)
+                  {
+                      MessageBox.Show(argh.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                  }
+            }
             /*string chemin="";
 
             saveFileDialog1.FileName = richTextBox1.Text + ".docx";
