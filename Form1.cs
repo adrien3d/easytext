@@ -88,9 +88,24 @@ namespace easytext
 
         private void toolStripButton10_Click(object sender, EventArgs e) //Enregister le doc Word
         {
-            String contenu = richTextBox1.Text;
 
-            string chemin="";
+           saveFileDialog1.Filter = "Fichier texte (*.txt)|*.txt";
+           saveFileDialog1.RestoreDirectory = true;
+
+           if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+           {
+                 try
+                 {
+                     StreamWriter sw = new StreamWriter(saveFileDialog1.FileName);
+                     sw.Write(richTextBox1.Text);
+                     sw.Close();
+                 }
+                 catch (Exception argh)
+                 {
+                     MessageBox.Show(argh.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                 }
+           }
+            /*string chemin="";
 
             saveFileDialog1.FileName = richTextBox1.Text + ".docx";
             DialogResult DR = saveFileDialog1.ShowDialog(); //bloquante  = modale
@@ -102,19 +117,10 @@ namespace easytext
 
                 Microsoft.Office.Interop.Word.Application woApp = new Microsoft.Office.Interop.Word.Application();
                 Microsoft.Office.Interop.Word.Document monDoc = woApp.WordBasic;
-                //monDoc. = contenu;
-
-
-                /*
-                    Excel.Application xlApp = new Excel.Application(); //lancement d'excel
-                    Excel.Workbook monclasseur = xlApp.Workbooks.Open(@"C:/Users/Adrien/Dev/C#/GestionnaireNotes/TPBulletinGroupeB2/res/modelebulletin.xlsx");//ds 'mes documents'
-                    Excel.Worksheet mafeuille = monclasseur.Sheets[1];//selection de la premiere feuille = premier onglet
-                    //remplissage du bulletin XLSX
-                    mafeuille.Cells[1, 2] = textBox1.Text; //nom ds textBox1
-                    monclasseur.SaveAs(chemin);
-                    monclasseur.Close(true); 
-                  */
-            }
+                monDoc = richTextBox1.Text;
+                mondoc.SaveAs(chemin);
+                mondoc.Close(true);
+            }*/
 
         }//Fin de la sauvegarde docx
 
