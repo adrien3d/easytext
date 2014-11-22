@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace easytext
 {
@@ -28,7 +29,10 @@ namespace easytext
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-
+            /*this.richTextBox1.Selection.Select(this.richTextBox1.Selection.Start.GetPositionAtOffset(-1), this.richTextBox1.Document.ContentEnd);
+            this.richTextBox1.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Red));
+            this.richTextBox1.TextChanged -= new TextChangedEventHandler(richTextBox1_TextChanged);
+            this.richTextBox1.Selection.Select(this.richTextBox1.Document.ContentEnd, this.richTextBox1.Document.ContentEnd);*/
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e) //Undo
@@ -43,7 +47,7 @@ namespace easytext
 
         private void toolStripButton3_Click(object sender, EventArgs e) //Rechercher
         {
-
+            //Cahrge form2
         }
 
         private void toolStripButton4_Click(object sender, EventArgs e) //Centrer
@@ -53,7 +57,7 @@ namespace easytext
 
         private void toolStripButton5_Click(object sender, EventArgs e) //Bold
         {
-
+             
         }
 
         private void toolStripButton6_Click(object sender, EventArgs e) //Italic
@@ -73,9 +77,13 @@ namespace easytext
 
         private void toolStripButton9_Click(object sender, EventArgs e) //Ouverture d'un doc Word
         {
-            openFileDialog1.FileName = "document.docx";
-            /*DialogResult DR = */openFileDialog1.ShowDialog();     //bloquante = modale
-            Form1.ActiveForm.Text = "EasyText - document.docx"; //Changement du titre de de la fenêtre
+            openFileDialog1.Filter = "Fichiers texte (.txt)|*.txt|Fichiers Word (.docx)|*.docx|Tous les Fichiers (*.*)|*.*";
+            openFileDialog1.ShowDialog();
+            
+            if (openFileDialog1.ShowDialog()==DialogResult.OK) {
+                richTextBox1.Text = File.ReadAllText(openFileDialog1.FileName);
+                Form1.ActiveForm.Text = openFileDialog1.FileName; //Changement du titre de de la fenêtre
+            }
         }
 
         private void toolStripButton10_Click(object sender, EventArgs e) //Enregister le doc Word
@@ -112,8 +120,13 @@ namespace easytext
 
         private void toolStripButton11_Click(object sender, EventArgs e) //Aide
         {
-            //Charge form2
+            //Charge form3
         }
+
+        //button ou combobox couleur
+        /*this.richTextBox1.SelectAll();
+            this.richTextBox1.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Blue));
+            this.richTextBox1.TextChanged += new TextChangedEventHandler(richTextBox1_TextChanged);*/
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) //Police
         {
