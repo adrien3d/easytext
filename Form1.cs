@@ -20,6 +20,16 @@ namespace easytext
             toolStripButton2.Enabled = false;
             if (richTextBox1.CanUndo)       toolStripButton1.Enabled = true;
             if (richTextBox1.CanRedo)       toolStripButton2.Enabled = true;
+            comboBox1.Items.Add("Arial");
+            comboBox1.Items.Add("Calibri");
+            comboBox1.Items.Add("Comic Sans MS");
+            comboBox1.Items.Add("Garamond");
+            comboBox1.Items.Add("Times New Roman");
+
+            comboBox2.Items.Add("Petit");
+            comboBox2.Items.Add("Normal");
+            comboBox2.Items.Add("Grand");
+            comboBox2.Items.Add("Très grand");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -144,12 +154,27 @@ namespace easytext
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) //Police
         {
-            //richTextBox1//Font
+            richTextBox1.SelectAll();
+
+            String font = comboBox1.SelectedItem.ToString();
+            richTextBox1.SelectionFont = new Font(font, 12);
+
+            richTextBox1.DeselectAll();
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e) //Taille
         {
-            //Size
+            richTextBox1.SelectAll();
+
+            String font = comboBox1.SelectedItem.ToString();
+            String size = comboBox2.SelectedItem.ToString();
+
+            if (size == "Petit")     richTextBox1.SelectionFont = new Font(font, 8);
+            if (size == "Normal")     richTextBox1.SelectionFont = new Font(font, 12);
+            if (size == "Grand")     richTextBox1.SelectionFont = new Font(font, 18);
+            if (size == "Très grand")     richTextBox1.SelectionFont = new Font(font, 22);
+            
+            richTextBox1.DeselectAll();
         }
     }
 }
