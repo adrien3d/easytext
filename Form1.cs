@@ -120,7 +120,7 @@ namespace easytext
                   }
                   catch (Exception argh)
                   {
-                      MessageBox.Show(argh.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                      MessageBox.Show(argh.Message, "Erreur à la sauvegarde", MessageBoxButtons.OK, MessageBoxIcon.Error);
                   }
             }
             /*string chemin="";
