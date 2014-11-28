@@ -57,7 +57,7 @@ namespace easytext
 
         private void toolStripButton3_Click(object sender, EventArgs e) //Rechercher
         {
-            //Cahrge form2
+            //Charge form2
         }
 
         int sel = 0;
@@ -96,7 +96,7 @@ namespace easytext
 
         private void toolStripButton9_Click(object sender, EventArgs e) //Ouverture d'un doc Word
         {
-            openFileDialog1.Filter = "Fichiers texte (.txt)|*.txt|Fichiers Word (.docx)|*.docx|Tous les Fichiers (*.*)|*.*";
+            openFileDialog1.Filter = "Tous les Fichiers (*.*)|*.*|Fichiers Texte (.txt)|*.txt|Fichiers Word (.docx)|*.docx|Fichiers RTF (.rtf)|*.rtf";
             
             if (openFileDialog1.ShowDialog()==DialogResult.OK) {
                 richTextBox1.Text = File.ReadAllText(openFileDialog1.FileName);
@@ -106,16 +106,27 @@ namespace easytext
 
         private void toolStripButton10_Click(object sender, EventArgs e) //Enregister le doc Word
         {
-            saveFileDialog1.Filter = "Fichier texte (*.txt)|*.txt";
+            saveFileDialog1.Filter = "Tous les Fichiers (*.*)|*.*|Fichiers Texte (.txt)|*.txt|Fichiers Word (.docx)|*.docx|Fichiers RTF (.rtf)|*.rtf";
             saveFileDialog1.RestoreDirectory = true;
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                Microsoft.Office.Interop.Word.Application msWord = new Microsoft.Office.Interop.Word.Application();
+                msWord.Visible = false; // mettez cette variable à true si vous souhaitez visualiser les opérations.
+                object missing = System.Reflection.Missing.Value;
+
+                string chemin = saveFileDialog1.FileName;
+                Microsoft.Office.Interop.Word.Document monDoc = msWord.WordBasic;
+               /* monDoc = richTextBox1;
+                monDoc.SaveAs(chemin);
+                monDoc.Close(true);*/
+
                   try
                   {
-                      StreamWriter sw = new StreamWriter(saveFileDialog1.FileName);
-                      sw.Write(richTextBox1.Text);
-                      sw.Close();
+                      RichTextBoxStreamType format = RichTextBoxStreamType.PlainText;
+                      if (saveFileDialog1.FilterIndex == 1)
+                      format = RichTextBoxStreamType.RichText;
+                      richTextBox1.SaveFile(chemin, format);
                       MessageBox.Show("Fichier bien sauvegardé");
                   }
                   catch (Exception argh)
@@ -123,22 +134,19 @@ namespace easytext
                       MessageBox.Show(argh.Message, "Erreur à la sauvegarde", MessageBoxButtons.OK, MessageBoxIcon.Error);
                   }
             }
-            /*string chemin="";
 
-            saveFileDialog1.FileName = richTextBox1.Text + ".docx";
-            DialogResult DR = saveFileDialog1.ShowDialog(); //bloquante  = modale
+            /*monDoc = msWord.Documents.Add();
+            object fileName = @"Mon nouveau document.docx";
+            monDoc.SaveAs(chemin);
+            monDoc.Close(true);*/
 
+            /*StreamWriter sw = new StreamWriter(saveFileDialog1.FileName);
+            sw.Write(richTextBox1.Text);
+            sw.Close();
+            MessageBox.Show("Fichier bien sauvegardé");*/
 
-            if (DR.Equals(DialogResult.OK)) //bouton ENREGISTRER
-            {
-                chemin = saveFileDialog1.FileName;
+            //richTextBox1.SaveFile(@"C:\Users\pascal\Google Drive\IG2I\L2\IHM - Interface Homme Machine\test.rtf", RichTextBoxStreamType.RichText);
 
-                Microsoft.Office.Interop.Word.Application woApp = new Microsoft.Office.Interop.Word.Application();
-                Microsoft.Office.Interop.Word.Document monDoc = woApp.WordBasic;
-                monDoc = richTextBox1.Text;
-                mondoc.SaveAs(chemin);
-                mondoc.Close(true);
-            }*/
 
         }//Fin de la sauvegarde docx
 
@@ -150,7 +158,8 @@ namespace easytext
         //button ou combobox couleur
         /*this.richTextBox1.SelectAll();
             this.richTextBox1.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Blue));
-            this.richTextBox1.TextChanged += new TextChangedEventHandler(richTextBox1_TextChanged);*/
+            this.richTextBox1.TextChanged += new TextChangedEventHandler(richTextBox1_TextChanged);
+          thiq.richTextBox1.DeselectAll()*/
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) //Police
         {
