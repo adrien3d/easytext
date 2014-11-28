@@ -57,7 +57,8 @@ namespace easytext
 
         private void toolStripButton3_Click(object sender, EventArgs e) //Rechercher
         {
-            //Charge form2
+            Form2 f2 = new Form2();
+            f2.ShowDialog();
         }
 
         int sel = 0;
@@ -74,19 +75,66 @@ namespace easytext
 
         private void toolStripButton5_Click(object sender, EventArgs e) //Bold
         {
-            richTextBox1.SelectAll();
-            //richTextBox1.SelectionColor = Color.Blue;
-            richTextBox1.DeselectAll();
+            if (richTextBox1.SelectionFont != null)
+            {
+                System.Drawing.Font currentFont = richTextBox1.SelectionFont;
+                System.Drawing.FontStyle newFontStyle;
+
+                if (richTextBox1.SelectionFont.Bold == true)
+                {
+                    newFontStyle = ~FontStyle.Bold;
+                    richTextBox1.SelectionFont = new Font(currentFont.FontFamily, currentFont.Size, newFontStyle & currentFont.Style);
+                }
+                else
+                {
+                    newFontStyle = FontStyle.Bold;
+                    richTextBox1.SelectionFont = new Font(currentFont.FontFamily, currentFont.Size, newFontStyle | currentFont.Style);
+                }
+
+            }
         }
 
         private void toolStripButton6_Click(object sender, EventArgs e) //Italic
         {
+            if (richTextBox1.SelectionFont != null)
+            {
+                System.Drawing.Font currentFont = richTextBox1.SelectionFont;
+                System.Drawing.FontStyle newFontStyle;
 
+                if (richTextBox1.SelectionFont.Italic == true)
+                {
+                    newFontStyle = ~FontStyle.Italic;
+                    richTextBox1.SelectionFont = new Font(currentFont.FontFamily, currentFont.Size, newFontStyle & currentFont.Style);
+                }
+                else
+                {
+                    newFontStyle = FontStyle.Italic;
+                    richTextBox1.SelectionFont = new Font(currentFont.FontFamily, currentFont.Size, newFontStyle | currentFont.Style);
+                }
+
+            }
         }
 
         private void toolStripButton7_Click(object sender, EventArgs e) //Underline
         {
+            if (richTextBox1.SelectionFont != null)
+            {
+                System.Drawing.Font currentFont = richTextBox1.SelectionFont;
+                System.Drawing.FontStyle newFontStyle;
 
+                if (richTextBox1.SelectionFont.Underline == true)
+                {
+                    newFontStyle = ~FontStyle.Underline;
+                    richTextBox1.SelectionFont = new Font(currentFont.FontFamily, currentFont.Size, newFontStyle & currentFont.Style);
+                }
+                else
+                {
+                    newFontStyle = FontStyle.Underline;
+                    richTextBox1.SelectionFont = new Font(currentFont.FontFamily, currentFont.Size, newFontStyle | currentFont.Style);
+                }
+
+                
+            }
         }
 
         private void toolStripButton8_Click(object sender, EventArgs e) //Imprimer le doc Word
@@ -160,6 +208,10 @@ namespace easytext
             this.richTextBox1.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Blue));
             this.richTextBox1.TextChanged += new TextChangedEventHandler(richTextBox1_TextChanged);
           thiq.richTextBox1.DeselectAll()*/
+        private void toolStripButton12_Click(object sender, EventArgs e)
+        {
+            colorDialog1.ShowDialog();
+        }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) //Police
         {
