@@ -13,6 +13,9 @@ namespace easytext
 {
     public partial class Form1 : Form
     {
+        public static String font = "Calibri";
+        public static float size = 12;
+
         public Form1()
         {
             InitializeComponent();
@@ -30,11 +33,13 @@ namespace easytext
             comboBox2.Items.Add("Normal");
             comboBox2.Items.Add("Grand");
             comboBox2.Items.Add("Très grand");
+
+            richTextBox1.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras egestas ac urna vitae tristique. Phasellus faucibus mi nisi, id sollicitudin elit sodales vel. Praesent suscipit nunc dignissim dui rhoncus, finibus mollis ex pharetra. Maecenas in urna ut magna volutpat elementum id eget ante. Proin eget sagittis nibh. Nulla facilisi. Suspendisse nec quam non risus vestibulum tempor a elementum nunc. Nulla ornare justo sed auctor maximus. Duis commodo pulvinar dolor, nec varius odio tincidunt non. Aliquam hendrerit tincidunt mauris, id pulvinar purus ultricies at. Morbi sodales sapien rutrum pretium vehicula. Sed a enim lacus. Integer tincidunt metus porttitor tristique porta. Donec non facilisis ex, vitae tempor mauris. ";
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
@@ -43,16 +48,22 @@ namespace easytext
             this.richTextBox1.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Red));
             this.richTextBox1.TextChanged -= new TextChangedEventHandler(richTextBox1_TextChanged);
             this.richTextBox1.Selection.Select(this.richTextBox1.Document.ContentEnd, this.richTextBox1.Document.ContentEnd);*/
+            if (richTextBox1.CanUndo) toolStripButton1.Enabled = true;
+            else toolStripButton1.Enabled = false;
+
+            if (richTextBox1.CanRedo) toolStripButton2.Enabled = true;
+            else toolStripButton2.Enabled = false;
+
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e) //Undo
         {
-
+            richTextBox1.Undo();
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e) //Redo
         {
-
+            richTextBox1.Redo();
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e) //Rechercher
@@ -61,14 +72,13 @@ namespace easytext
             f2.ShowDialog();
         }
 
-        int sel = 0;
         private void toolStripButton4_Click(object sender, EventArgs e) //Centrer
         {
-            richTextBox1.SelectAll();
-
-            if ((sel%2) ==0) richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+            
+            if (richTextBox1.SelectedText == "") richTextBox1.SelectAll();
+            
+            if (richTextBox1.SelectionAlignment == HorizontalAlignment.Left) richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
             else richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
-            sel++;
 
             richTextBox1.DeselectAll();
         }
@@ -215,28 +225,38 @@ namespace easytext
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) //Police
         {
-            richTextBox1.SelectAll();
+            if (richTextBox1.SelectedText == "") richTextBox1.SelectAll();
 
-            String font = comboBox1.SelectedItem.ToString();
+            font = comboBox1.SelectedItem.ToString();
 
-            richTextBox1.SelectionFont = new Font(font, 12);
+            richTextBox1.SelectionFont = new Font(font, size);
 
             richTextBox1.DeselectAll();
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e) //Taille
         {
-            richTextBox1.SelectAll();
+            if (richTextBox1.SelectedText == "") richTextBox1.SelectAll();
 
-            String font = comboBox1.SelectedItem.ToString();
-            String size = comboBox2.SelectedItem.ToString();
+            String taillechoisie = comboBox2.SelectedItem.ToString();
 
-            if (size == "Petit")     richTextBox1.SelectionFont = new Font(font, 8);
-            if (size == "Normal")     richTextBox1.SelectionFont = new Font(font, 12);
-            if (size == "Grand")     richTextBox1.SelectionFont = new Font(font, 18);
-            if (size == "Très grand")     richTextBox1.SelectionFont = new Font(font, 22);
+            if (taillechoisie == "Petit") size = 8;
+            if (taillechoisie == "Normal") size = 12;
+            if (taillechoisie == "Grand") size = 18;
+            if (taillechoisie == "Très grand") size = 22;
+            
+            richTextBox1.SelectionFont = new Font(font, size);
             
             richTextBox1.DeselectAll();
+
+
+
+            /*if (richTextBox1.SelectedText == "") richTextBox1.SelectAll();
+
+            if (richTextBox1.SelectionAlignment == HorizontalAlignment.Left) richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+            else richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
+
+            richTextBox1.DeselectAll();*/
         }
     }
 }

@@ -21,5 +21,20 @@ namespace easytext
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e) //Rechercher suivant
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e) //Rechercher suivant pour remplacer
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e) //Remplacer séléectionné
+        {
+
+        }
     }
 }
